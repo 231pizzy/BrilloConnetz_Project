@@ -1,13 +1,47 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch, } from "react-redux";
+import {
+  otpVerification
+} from "../redux/user/userSlice";
 
 export default function VerifyOTP() {
   const { currentUser } = useSelector((state) => state.user);
   const [resendDisabled, setResendDisabled] = useState(true);
+  const [formData, setFormData] = useState({});
   const [countdown, setCountdown] = useState(180); // 3 minutes in seconds
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/auth/verify-otp", {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        return;
+      }
+      dispatch(otpVerification(data));
+      toast.success("OTP verification successful!");
+      navigate("/sign-in");
+    } catch (error) {
+      toast.error("Invalid OTP");
+    }
+  };
 
   const handleResendClick = () => {
     // Logic to resend OTP goes here
@@ -45,13 +79,13 @@ export default function VerifyOTP() {
         <p className="text-xl text-center font-semibold my-7 text-gradient">
           Please enter the code sent to your phone number {currentUser.phone}
         </p>
-        <form className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"
             placeholder="Enter your OTP"
             className="border p-3 rounded-lg"
-            id="otp"
-            // onChange={handleChange}
+            id="OTP"
+            onChange={handleChange}
             required
           />
           <button

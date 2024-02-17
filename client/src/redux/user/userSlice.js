@@ -27,6 +27,11 @@ const userSlice = createSlice({
       state.currentUser.emailVerified = emailVerified;
       state.currentUser.emailToken = emailToken;
     },
+    otpVerification: (state, action) => {
+      const { otpstatus } = action.payload; 
+      state.currentUser.status = otpstatus;
+    
+    },
     signInStart: (state) => {
       state.loading = true;
     },
@@ -83,6 +88,7 @@ export const {
   registerSuccess,
   registerFailure,
   emailVerification,
+  otpVerification,
   signInStart,
   signInSuccess,
   signInFailure,

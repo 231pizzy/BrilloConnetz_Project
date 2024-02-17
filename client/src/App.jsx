@@ -25,6 +25,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import VerifyEmail from "./pages/VerifyEmail";
 import VerifyOTP from "./pages/VerifyOTP";
 import SignUp from "./pages/Signup";
+import Notification from "./pages/Notification";
 
 
 const App = () => {
@@ -77,10 +78,11 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cars" element={<Carpage />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/notification" element={<Notification />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/verifyOTP" element={<VerifyOTP />} />
           <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
 
           <Route path="/listing/:listingId" element={<Listing />} />
           <Route element={<PrivateRoute />}>

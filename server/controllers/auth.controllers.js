@@ -4,13 +4,26 @@ import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto"
-import { verificationMail } from "../utils/notification.js";
+import { sendSMS, verificationMail } from "../utils/notification.js";
 // import validator from "validator";
 
 export const signup = async (req, res, next) => {
   const { firstName, lastName, userName, phone, email, interests, password } = req.body;
   const hashedPassword = bcryptjs.hashSync(password, 10);
   const OTP = Math.floor(10000 + Math.random() * 90000);
+
+  // Check if email or phone already exists
+  const existingUserWithEmail = await User.findOne({ email: email.toLowerCase() });
+  const existingUserWithPhone = await User.findOne({ phone });
+
+  if (existingUserWithEmail) {
+    return res.status(400).json({ error: "Email already exists." });
+  }
+
+  if (existingUserWithPhone) {
+    return res.status(400).json({ error: "Phone number already exists." });
+  }
+
   const newUser = new User({
     firstName,
     lastName,
@@ -23,16 +36,13 @@ export const signup = async (req, res, next) => {
     password: hashedPassword,
   });
 
-  if(!firstName || !lastName || !userName || !phone || !email || !password)
-  return res.status(400).json("All fields are required....")
-
-  // if(!validator.isEmail(email))
-  // return res.status(400).json("Email must be a valid email.....")
+  if (!firstName || !lastName || !userName || !phone || !email || !password)
+    return res.status(400).json("All fields are required....");
 
   try {
     await newUser.save();
 
-    verificationMail(newUser)
+    verificationMail(newUser);
 
     const { password: pass, ...rest } = newUser._doc;
     res.status(201).json(rest);
@@ -40,6 +50,7 @@ export const signup = async (req, res, next) => {
     next(error);
   }
 };
+
 
 export const verifyEmail = async (req, res, next) => {
   try {
@@ -55,6 +66,10 @@ export const verifyEmail = async (req, res, next) => {
 
       await user.save();
 
+      // Send SMS with the saved token
+      const message = `Your BrilloConnetz OTP verification code is: ${user.OTP}`;
+      await sendSMS(user.phone, message);
+
 
       res.status(200).json({
         message: "Email verification successful. OTP sent to your phone number.",
@@ -62,6 +77,31 @@ export const verifyEmail = async (req, res, next) => {
         emailToken: user.emailToken,
       });
     } else res.status(404).json("Email verification failed")
+
+  } catch (error) {
+    next(error);
+  }
+}
+
+export const verifyOTP = async (req, res, next) => {
+  try {
+    const {OTP}= req.body
+
+    if(!OTP) returnres.status(400).json("Invalid OTP Verification code...")
+
+    const user = await User.findOne({OTP})
+
+    if(user){
+      user.status = true;
+
+      await user.save();
+
+
+      res.status(200).json({
+        message: "OTP verification successful",
+        otpstatus : user.status,
+      });
+    } else res.status(404).json("OTP verification failed")
 
   } catch (error) {
     next(error);

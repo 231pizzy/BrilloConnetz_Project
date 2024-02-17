@@ -1,24 +1,26 @@
-// import twilio from 'twilio'
+import twilio from 'twilio'
 import nodemailer from "nodemailer"
+import dotenv from "dotenv";
 
-// export const sendSMS = async (to, message) => {
-//     const accountSid = 'your_account_sid'; // Your Twilio Account SID
-//     const authToken = 'your_auth_token'; // Your Twilio Auth Token
-//     const twilioNumber = 'your_twilio_phone_number'; // Your Twilio Phone Number
+dotenv.config();
+export const sendSMS = async (to, message) => {
+    const accountSid = process.env.TWILIO_ACCOUNT; // Your Twilio Account SID
+    const authToken = process.env.AUTH_TOKEN; // Your Twilio Auth Token
+    const twilioNumber = process.env.TWILIO_NUMBER; // Your Twilio Phone Number
   
-//     const client = twilio(accountSid, authToken);
+    const client = twilio(accountSid, authToken);
   
-//     try {
-//       await client.messages.create({
-//         body: message,
-//         from: twilioNumber,
-//         to: to
-//       });
-//       console.log('SMS sent successfully.');
-//     } catch (error) {
-//       console.error('Error sending SMS:', error);
-//     }
-//   };
+    try {
+      await client.messages.create({
+        body: message,
+        from: twilioNumber,
+        to: to
+      });
+      console.log('SMS sent successfully.');
+    } catch (error) {
+      console.error('Error sending SMS:', error);
+    }
+  };
 
 export const transporter = nodemailer.createTransport({
     service: "hotmail",
@@ -30,14 +32,11 @@ export const transporter = nodemailer.createTransport({
   
   export const verificationMail = async (newUser) => {
     try {
-      const info = transporter.sendMail({
-        from: {
-          name: "BrilloConnetz",
-          address: process.env.MAIL_USER,
-        },
+      transporter.sendMail({
+        from: '"BrilloConnetz" <dev-obiora@outlook.com>',
         to: newUser.email,
         subject: "Verify Your Email Address",
-        html: `<p> Hello ${newUser.userName}, Verify your eamil by clicking this link...</p><a href="${process.env.URL}/verify-email?emailToken=${newUser.emailToken}">Here.</a>`,
+        html: `<p> Hello ${newUser.userName},Welcome to BrilloConnetz. Verify your email by clicking this link...</p><a href="${process.env.URL}/verify-email?emailToken=${newUser.emailToken}">CLICK HERE.</a>`,
       });
       console.log("Verification email sent:");
     } catch (err) {

@@ -65,7 +65,7 @@ export default function SignUp() {
       setLoading(false);
       setError(null);
       dispatch(registerSuccess(data));
-      navigate("/sign-in");
+      navigate("/notification");
     } catch (error) {
       setLoading(false);
       setError(error.message);

@@ -15,15 +15,14 @@ export default function VerifyEmail() {
   const dispatch = useDispatch();
 
   const emailToken = searchParams.get("emailToken")
-  console.log(currentUser)
+  console.log("active",currentUser)
   console.log(emailToken)
 
   useEffect(() => {
     (async () => {
-      if (currentUser?.emailVerifed
-        && currentUser?.status) {
+      if (currentUser?.emailVerified) {
         setTimeout(() => {
-          return navigate("/signin");
+          return navigate("/verifyOTP");
         }, 3000);
       } else {
         if (emailToken) {
