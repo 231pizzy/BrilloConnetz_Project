@@ -42,8 +42,8 @@ export default function SignUp() {
     });
   };
 
-  console.log(formData)
-
+  
+// Handle submit functionality
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -83,6 +83,7 @@ export default function SignUp() {
           className="border p-3 rounded-lg"
           id="firstName"
           onChange={handleChange}
+          required
         />
         <input
           type="text"
@@ -90,6 +91,7 @@ export default function SignUp() {
           className="border p-3 rounded-lg"
           id="lastName"
           onChange={handleChange}
+          required
         />
         <input
           type="text"
@@ -97,6 +99,7 @@ export default function SignUp() {
           className="border p-3 rounded-lg"
           id="userName"
           onChange={handleChange}
+          required
         />
          <input
           type="text"
@@ -104,6 +107,7 @@ export default function SignUp() {
           className="border p-3 rounded-lg"
           id="phone"
           onChange={handleChange}
+          required
         />
         <input
           type="email"
@@ -111,6 +115,7 @@ export default function SignUp() {
           className="border p-3 rounded-lg"
           id="email"
           onChange={handleChange}
+          required
         />
         <input
           type="password"
@@ -118,11 +123,12 @@ export default function SignUp() {
           className="border p-3 rounded-lg"
           id="password"
           onChange={handleChange}
+          required
         />
         <div className="relative">
           <button
           type="button"
-            className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+            className="bg-green-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
             onClick={() => setShowInterestsDropdown(!showInterestsDropdown)}
           >
             Select your interests
@@ -144,7 +150,7 @@ export default function SignUp() {
         </div>
         <button
           disabled={loading}
-          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+          className="bg-green-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
           {loading ? "Loading..." : "Sign Up"}
         </button>

@@ -13,13 +13,13 @@ import CarList from "./components/CarList/CarList";
 import AppStoreBanner from "./components/AppStoreBanner/AppStoreBanner";
 import Contact from "./components/Contact/Contact";
 import Testimonial from "./components/Testimonial/Testimonial";
+import SignUp from "./pages/Signup";
 import SignIn from "./pages/Signin";
+import VerifyEmail from "./pages/VerifyEmail";
+import VerifyOTP from "./pages/VerifyOTP";
 import Profile from "./pages/Profile";
 import Bot from "./components/Bot";
 import PrivateRoute from "./components/PrivateRoute";
-import VerifyEmail from "./pages/VerifyEmail";
-import VerifyOTP from "./pages/VerifyOTP";
-import SignUp from "./pages/Signup";
 import Notification from "./pages/Notification";
 import Settings from "./pages/Settings";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -88,7 +88,6 @@ const App = () => {
             <Route path="/settings" element={<Settings />} />
           </Route>
         </Routes>
-        {/* <Footer /> */}
       </BrowserRouter>
     </div>
   );

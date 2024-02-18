@@ -14,6 +14,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // Handle change in formData
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -21,6 +22,7 @@ export default function SignIn() {
     });
   };
 
+  // Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -35,6 +37,7 @@ export default function SignIn() {
       const data = await res.json();
       if (data.success === false) {
         dispatch(signInFailure(data.message));
+        toast.error("Invalid credentials")
         return;
       }
       dispatch(signInSuccess(data));
@@ -66,7 +69,7 @@ export default function SignIn() {
         />
         <button
           disabled={loading}
-          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+          className="bg-green-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
           {loading ? "Loading..." : "Sign in"}
         </button>

@@ -47,28 +47,34 @@ export default function VerifyOTP() {
     // Logic to resend OTP goes here
     // For now, we'll just simulate the action by setting a timeout
     setResendDisabled(true);
+    setCountdown(180); // Reset countdown after 3 minutes
+    // Additional logic to resend OTP
+    toast.success("OTP resent successfully!");
+  
     setTimeout(() => {
       setResendDisabled(false);
-      setCountdown(180); // Reset countdown after 3 minutes
-      // Additional logic to resend OTP
-      toast.success("OTP resent successfully!");
     }, 180000); // 3 minutes in milliseconds
   };
+  
 
   useEffect(() => {
     let timer;
     if (resendDisabled) {
       timer = setInterval(() => {
-        setCountdown((prevCount) => prevCount - 1);
+        setCountdown((prevCount) => {
+          if (prevCount === 0) {
+            clearInterval(timer);
+            setResendDisabled(false);
+            return 0;
+          } else {
+            return prevCount - 1;
+          }
+        });
       }, 1000); // Decrease countdown by 1 second every second
     }
     return () => clearInterval(timer);
   }, [resendDisabled]);
-
-  // Automatically start countdown and disable resend button on component mount
-  useEffect(() => {
-    setResendDisabled(true);
-  }, []);
+  
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -90,7 +96,7 @@ export default function VerifyOTP() {
           />
           <button
             // disabled={loading}
-            className="bg-blue-gradient text-black p-3 rounded-lg uppercase hover:bg-blue-hover disabled:opacity-80"
+            className="bg-green-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
           >
             Verify
           </button>
@@ -99,7 +105,7 @@ export default function VerifyOTP() {
             <button
               disabled={resendDisabled}
               onClick={handleResendClick}
-              className="bg-blue-gradient text-black p-3 rounded-lg uppercase hover:bg-blue-hover disabled:opacity-80"
+              className="bg-green-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
             >
               {resendDisabled
                 ? `Resend OTP (${Math.floor(countdown / 60)}:${
