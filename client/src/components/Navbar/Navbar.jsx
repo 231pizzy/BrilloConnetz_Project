@@ -9,25 +9,44 @@ import { useEffect } from "react";
 export const Navlinks = [
   {
     id: 1,
-    name: "HOME",
-    link: "/#",
+    name: "LOGIN",
+    link: "/sign-in",
   },
   {
     id: 2,
-    name: "ABOUT",
-    link: "/#about",
+    name: "REGISTER",
+    link: "/sign-up",
+  },
+
+];
+
+export const Userlinks = [
+  {
+    id: 1,
+    name: "PROFILE",
+    link: "/sign-in",
+  },
+  {
+    id: 2,
+    name: "BUDDIES",
+    link: "/sign-up",
   },
   {
     id: 3,
-    name: "SHOW ROOM",
-    link: "/cars",
+    name: "DISCOVER",
+    link: "/sign-in",
   },
+  {
+    id: 4,
+    name: "SETTINGS",
+    link: "/sign-up",
+  },
+  {
+    id: 5,
+    name: "LOGOUT",
+    link: "/sign-up",
+  }, 
 
-  // {
-  //   id: 4,
-  //   name: "CONTACT US",
-  //   link: "/#booking",
-  // },
 ];
 const Navbar = ({ theme, setTheme }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -61,29 +80,23 @@ const Navbar = ({ theme, setTheme }) => {
         <div className="flex justify-between items-center">
           <Link to={"/"}>
             <span className="text-3xl font-bold font-serif cursor-pointer">
-              Carz<span className="text-red-700">Arena</span>
+              Brillo<span className="text-green-700">Connetz</span>
             </span>
           </Link>
           <nav className="hidden md:block">
+          {currentUser?.status ? (
+
             <ul className="flex items-center gap-8">
-              {Navlinks.map(({ id, name, link }) => (
+              {Userlinks.map(({ id, name, link }) => (
                 <li key={id} className="py-4">
-                  <a
-                    href={link}
-                    className=" text-lg font-medium  hover:text-red-700 py-2 hover:border-b-2 hover:border-red-700 transition-colors duration-500  "
+                  <Link
+                    to={link}
+                    className=" text-lg font-medium  hover:text-green-700 py-2 hover:border-b-2 hover:border-green-700 transition-colors duration-500  "
                   >
                     {name}
-                  </a>
+                  </Link>
                 </li>
               ))}
-              <Link to="/profile">
-                {currentUser && (
-                  <p className=" text-lg font-medium  hover:text-red-700 py-2 hover:border-b-2 hover:border-red-700 transition-colors duration-500  ">
-                    PROFILE
-                  </p>
-                )}
-              </Link>
-              {/* DarkMode feature implement */}
               {theme === "dark" ? (
                 <BiSolidSun
                   onClick={() => setTheme("light")}
@@ -96,6 +109,31 @@ const Navbar = ({ theme, setTheme }) => {
                 />
               )}
             </ul>
+          ) : (
+            <ul className="flex items-center gap-8">
+            {Navlinks.map(({ id, name, link }) => (
+              <li key={id} className="py-4">
+                <Link
+                  to={link}
+                  className=" text-lg font-medium  hover:text-green-700 py-2 hover:border-b-2 hover:border-green-700 transition-colors duration-500  "
+                >
+                  {name}
+                </Link>
+              </li>
+            ))}
+            {theme === "dark" ? (
+              <BiSolidSun
+                onClick={() => setTheme("light")}
+                className="text-2xl"
+              />
+            ) : (
+              <BiSolidMoon
+                onClick={() => setTheme("dark")}
+                className="text-2xl"
+              />
+            )}
+          </ul>
+          )}
           </nav>
           {/* Mobile view  */}
           <div className="flex items-center gap-4 md:hidden ">

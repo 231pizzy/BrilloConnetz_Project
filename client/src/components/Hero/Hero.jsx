@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import carPng from "../../assets/car.png";
 // import yellowCar from "../../assets/banner-car.png";
-import redCar from "../../assets/maserati.png";
+import redCar from "../../assets/sportfan1.png";
 import AOS from "aos";
 import { useNavigate } from "react-router-dom";
 
@@ -11,9 +11,9 @@ const Hero = ({ theme }) => {
     AOS.refresh();
   });
 
-  const handleShowRoomClick = () => {
-    // Navigate to the "/cars" page
-    navigate("/cars");
+  const handleRegister = () => {
+
+    navigate("/sign-up");
   };
 
   return (
@@ -24,7 +24,7 @@ const Hero = ({ theme }) => {
             data-aos="zoom-in"
             data-aos-duration="1500"
             data-aos-once="false"
-            className="order-1 sm:order-2"
+            className="order-1 sm:order-2 mb-6 md:mb-0"
           >
             <img
               src={theme === "dark" ? carPng : redCar}
@@ -40,25 +40,18 @@ const Hero = ({ theme }) => {
               About us
             </h1>
             <p data-aos="fade-up" className="leading-8 tracking-wide">
-              Welcome to CarzArena, the epitome of luxury in the automotive
-              realm. At the forefront of excellence, we curate a collection of
-              the world's finest luxury cars, setting new standards in
-              sophistication. Our team is dedicated to providing a personalized
-              and extraordinary experience, redefining the art of driving.
-            </p>
-            <p data-aos="fade-up">
-              CarzArena — where automotive aspirations meet distinction
+            At BrilloConnetz, we're dedicated to creating a vibrant and inclusive space for sports enthusiasts worldwide. Our passion for sports drives us to build a community where fans can connect, share their love for the game, and forge lasting friendships. Whether you're a seasoned athlete or a casual spectator, we believe in the power of sports to inspire, unite, and uplift. Join us as we celebrate the thrill of competition, the joy of camaraderie, and the endless possibilities that sports bring to our lives.
             </p>
             <button
               data-aos="fade-up"
               data-aos-delay="200"
               onClick={() => {
                 AOS.refreshHard();
-                handleShowRoomClick();
+                handleRegister();
               }}
-              className="rounded-md bg-red-700 hover:bg-red-800 transition duration-500 py-2 px-6 text-white"
+              className="rounded-md bg-green-700 hover:bg-green-800 transition duration-500 py-2 px-6 text-white"
             >
-              Show Room {">>>"}
+              Get Started 
             </button>
           </div>
         </div>

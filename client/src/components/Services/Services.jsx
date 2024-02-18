@@ -1,13 +1,13 @@
 import React from "react";
-import { FaMoneyCheckDollar } from "react-icons/fa6";
+import { FaPeopleLine } from "react-icons/fa6";
 import { FaHandshake } from "react-icons/fa";
-import { IoPeopleCircleSharp } from "react-icons/io5";
+import { IoMdNotifications } from "react-icons/io";
 
 const skillsData = [
   {
-    name: "Affordability with Elegance",
+    name: "Community Forums and Discussions",
     icon: (
-      <FaMoneyCheckDollar className="text-5xl text-red-700 group-hover:text-white duration-300" />
+      <FaPeopleLine className="text-5xl text-green-700 duration-300" />
     ),
     link: "#",
     description:
@@ -15,23 +15,23 @@ const skillsData = [
     aosDelay: "0",
   },
   {
-    name: "Pinnacle of Quality Assurance",
+    name: " Personalized Sports Profiles",
     icon: (
-      <FaHandshake className="text-5xl text-red-700 group-hover:text-white duration-300" />
+      <FaHandshake className="text-5xl text-green-700 duration-300" />
     ),
     link: "#",
     description:
-      "Step into a world where quality isn't just a standard; it's a commitment. Each luxury car in our collection undergoes rigorous scrutiny, ensuring that only the epitome of quality finds its way to your discerning taste.",
+      "Craft your unique sports persona with our personalized sports profiles. Showcase your favorite teams, highlight your proudest moments, and connect with fellow fans who share your passion. With customizable features and interactive elements, your profile becomes a digital extension of your sports identity, allowing you to express your love for the game in your own unique way.",
     aosDelay: "500",
   },
   {
-    name: "Client-Centric Commitment",
+    name: "Live Match Updates",
     icon: (
-      <IoPeopleCircleSharp className="text-5xl text-red-700 group-hover:text-white duration-500" />
+      <IoMdNotifications className="text-5xl text-green-700 duration-500" />
     ),
     link: "#",
     description:
-      "Our unwavering dedication to client satisfaction is at the core of everything we do. From personalized consultations to seamless transactions, we prioritize your needs and elevate your luxury car experience.",
+      "Experience the thrill of every moment with our comprehensive live match updates feature. From scores to player stats, our real-time updates keep you immersed in the action, ensuring you're always up-to-date with the latest developments, even when you can't be in the stands.",
     aosDelay: "1000",
   },
 ];
@@ -55,7 +55,7 @@ const Services = () => {
                 key={skill.name}
                 data-aos="fade-up"
                 data-aos-delay={skill.aosDelay}
-                className="card text-center group space-y-3 sm:space-y-6 p-4 sm:py-16 bg-dark duration-300 text-white rounded-lg"
+                className="card text-center group space-y-3 sm:space-y-6 p-4 sm:py-16 bg-slate-100 duration-300 text-gray-800 rounded-lg"
               >
                 <div className="grid place-items-center">{skill.icon}</div>
                 <h1 className="text-2xl font-bold">{skill.name}</h1>
