@@ -41,6 +41,9 @@ const userSchema = new mongoose.Schema(
     emailToken: {
       type: String,
     },
+    recoveryToken: {
+      type: String,
+    },
     interests: {
       type: Array,
     },

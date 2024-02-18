@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { BiSolidSun, BiSolidMoon } from "react-icons/bi";
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import ResponsiveMenu from "./ResponsiveMenu";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+
 
 export const Navlinks = [
   {
@@ -24,33 +25,30 @@ export const Userlinks = [
   {
     id: 1,
     name: "PROFILE",
-    link: "/sign-in",
+    link: "/profile",
   },
   {
     id: 2,
     name: "BUDDIES",
-    link: "/sign-up",
+    link: "/buddies",
   },
   {
     id: 3,
     name: "DISCOVER",
-    link: "/sign-in",
+    link: "/discover",
   },
   {
     id: 4,
-    name: "SETTINGS",
-    link: "/sign-up",
+    name: "SETTINGS & PRIVACY",
+    link: "/settings",
   },
-  {
-    id: 5,
-    name: "LOGOUT",
-    link: "/sign-up",
-  }, 
+
 
 ];
 const Navbar = ({ theme, setTheme }) => {
   const [showMenu, setShowMenu] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const toggleMenu = (e) => {
     e.stopPropagation();
@@ -70,6 +68,7 @@ const Navbar = ({ theme, setTheme }) => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [showMenu]);
+
 
   return (
     <div
@@ -91,7 +90,7 @@ const Navbar = ({ theme, setTheme }) => {
                 <li key={id} className="py-4">
                   <Link
                     to={link}
-                    className=" text-lg font-medium  hover:text-green-700 py-2 hover:border-b-2 hover:border-green-700 transition-colors duration-500  "
+                    className=" text-lg font-medium  hover:text-green-700 py-2 hover:border-b-2 hover:border-green-700 transition-colors duration-500 "
                   >
                     {name}
                   </Link>

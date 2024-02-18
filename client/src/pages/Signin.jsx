@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,8 +24,8 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispatch(signInStart);
-      const res = await fetch("/api/user/signin", {
+      dispatch(signInStart());
+      const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: {
           "content-Type": "application/json",
@@ -39,9 +39,9 @@ export default function SignIn() {
       }
       dispatch(signInSuccess(data));
       toast.success("You have successfully logged in!");
-      navigate("/profile");
+      navigate("/");
     } catch (error) {
-      toast.error("Invalid credentials, Try again if you're an Admin/Agent!");
+      toast.error("Invalid credentials");
       dispatch(signInFailure(error.message));
     }
   };
@@ -51,10 +51,10 @@ export default function SignIn() {
       <h1 className="text-3xl text-center font-semibold my-7">Sign In</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
-          type="email"
-          placeholder="Email"
+          type="text"
+          placeholder="Email or phone number eg(+234***)"
           className="border p-3 rounded-lg"
-          id="email"
+          id="emailOrPhone"
           onChange={handleChange}
         />
         <input
@@ -70,6 +70,11 @@ export default function SignIn() {
         >
           {loading ? "Loading..." : "Sign in"}
         </button>
+        <div className="flex justify-end mt-1">
+        <Link to={"/forgot-password"} className="text-red-700 cursor-pointer">
+          Forgot Password?
+        </Link>
+      </div>
         <div className="flex gap-2 mt-5">
           <p>Don't have an account?</p>
           <Link to={"/sign-up"}>

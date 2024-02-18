@@ -13,19 +13,16 @@ import CarList from "./components/CarList/CarList";
 import AppStoreBanner from "./components/AppStoreBanner/AppStoreBanner";
 import Contact from "./components/Contact/Contact";
 import Testimonial from "./components/Testimonial/Testimonial";
-// import Footer from "./components/Footer/Footer";
-import Carpage from "./pages/Carpage";
 import SignIn from "./pages/Signin";
 import Profile from "./pages/Profile";
-import CreateListing from "./pages/CreateListing";
-import UpdateListing from "./pages/UpdateListing";
-import Listing from "./pages/Listing";
 import Bot from "./components/Bot";
 import PrivateRoute from "./components/PrivateRoute";
 import VerifyEmail from "./pages/VerifyEmail";
 import VerifyOTP from "./pages/VerifyOTP";
 import SignUp from "./pages/Signup";
 import Notification from "./pages/Notification";
+import Settings from "./pages/Settings";
+import ForgotPassword from "./pages/ForgotPassword";
 
 
 const App = () => {
@@ -77,21 +74,16 @@ const App = () => {
         <Navbar theme={theme} setTheme={setTheme} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/cars" element={<Carpage />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/verifyOTP" element={<VerifyOTP />} />
           <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          <Route path="/listing/:listingId" element={<Listing />} />
           <Route element={<PrivateRoute />}>
-            <Route path="/create-listing" element={<CreateListing />} />
-            <Route
-              path="/update-listing/:listingId"
-              element={<UpdateListing />}
-            />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Settings />} />
           </Route>
         </Routes>
         {/* <Footer /> */}

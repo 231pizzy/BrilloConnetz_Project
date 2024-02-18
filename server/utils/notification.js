@@ -43,3 +43,21 @@ export const transporter = nodemailer.createTransport({
       console.error("Error sending verification email:");
     }
   };
+
+  export const forgotPasswordMail = async (user) => {
+    try {
+      transporter.sendMail({
+        from: '"BrilloConnetz" <dev-obiora@outlook.com>',
+        to: user.email,
+        subject: "Forgot password",
+        html: `<p> Hi ${user.userName},</p>
+             <P>Forgot your password?</p>
+             <p>We received a request to reset the password for your account.</p>
+             <p>To reset your password</p>
+        <a href="${process.env.URL}/reset-password?recoveryToken=${user.recoveryToken}">CLICK HERE.</a>`,
+      });
+      console.log("Verification email sent:");
+    } catch (err) {
+      console.error("Error sending verification email:");
+    }
+  };

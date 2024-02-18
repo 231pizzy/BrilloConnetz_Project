@@ -1,11 +1,10 @@
 import User from "../models/user.model.js";
-import Listing from "../models/listing.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto"
-import { sendSMS, verificationMail } from "../utils/notification.js";
-// import validator from "validator";
+import { forgotPasswordMail, sendSMS, verificationMail } from "../utils/notification.js";
+
 
 export const signup = async (req, res, next) => {
   const { firstName, lastName, userName, phone, email, interests, password } = req.body;
@@ -31,6 +30,7 @@ export const signup = async (req, res, next) => {
     phone,
     OTP,
     emailToken: crypto.randomBytes(64).toString("hex"),
+    recoveryToken: crypto.randomBytes(64).toString("hex"),
     email: email.toLowerCase(),
     interests,
     password: hashedPassword,
@@ -109,15 +109,33 @@ export const verifyOTP = async (req, res, next) => {
 }
 
 export const signin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { emailOrPhone, password } = req.body;
   try {
-    const normalizedEmail = email.toLowerCase();
-    const validUser = await User.findOne({ email: normalizedEmail });
+    // Construct query to search for user by email or phone number
+    const query = {
+      $or: [
+        { email: emailOrPhone.toLowerCase() },
+        { phone: emailOrPhone }
+      ]
+    };
+
+    // Find user by email or phone number
+    const validUser = await User.findOne(query);
+
+    // If user not found, return error
     if (!validUser) return next(errorHandler(404, "User not found"));
+
+    // Validate password
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, "Wrong credentials"));
+
+    // Generate JWT token
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+
+    // Omit password from user object
     const { password: pass, ...rest } = validUser._doc;
+
+    // Set token as cookie
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
@@ -127,10 +145,31 @@ export const signin = async (req, res, next) => {
   }
 };
 
+
 export const signOut = async (req, res, next) => {
   try {
     res.clearCookie("access_token");
     res.status(200).json("User has been logged out!");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const forgotPassword = async (req, res, next) => {
+  const { email} = req.body;
+  try {
+   
+    // Find user by email or phone number
+    const user = await User.findOne({ email: email.toLowerCase() });
+
+    // If user not found, return error
+    if (!user) return next(errorHandler(404, "User not found"));
+     
+    forgotPasswordMail(user)
+
+    res.status(200).json({
+      message: "Password recovery link has being sent to your email"
+    });
   } catch (error) {
     next(error);
   }
@@ -148,14 +187,10 @@ export const updateUser = async (req, res, next) => {
       req.params.id,
       {
         $set: {
-          // firstName: req.body.firstName,
-          // lastName: req.body.lastName,
-          // company: req.body.company,
-          // phone: req.body.phone,
-          // userName: req.body.userName,
-          // email: req.body.email,
+          userName: req.body.userName,
+          email: req.body.email,
           password: req.body.password,
-          // avatar: req.body.avatar,
+          avatar: req.body.avatar,
         },
       },
       { new: true }
@@ -169,15 +204,3 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
-export const getUserListings = async (req, res, next) => {
-  if (req.user.id === req.params.id) {
-    try {
-      const listings = await Listing.find({ userRef: req.params.id });
-      res.status(200).json(listings);
-    } catch (error) {
-      next(error);
-    }
-  } else {
-    return next(errorHandler(401, "You can only view your own listings!"));
-  }
-};

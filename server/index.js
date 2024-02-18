@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.route.js";
-import listingRouter from "./routes/listing.route.js";
 import path from "path";
 
 dotenv.config();
@@ -28,7 +27,6 @@ app.listen(3000, () => {
 });
 
 app.use("/api/auth", authRouter);
-app.use("/api/listing", listingRouter);
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 

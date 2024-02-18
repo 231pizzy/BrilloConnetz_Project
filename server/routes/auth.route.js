@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  getUserListings,
+  forgotPassword,
   signOut,
   signin,
   signup,
@@ -16,9 +16,9 @@ const router = express.Router();
 router.post("/signup", signup);
 router.post("/verify-email", verifyEmail);
 router.post("/verify-otp", verifyOTP);
+router.post("/forgot-password", forgotPassword);
 router.post("/signin", signin);
 router.get("/signout", signOut);
 router.post("/update/:id", verifyToken, updateUser);
-router.get("/listings/:id", verifyToken, getUserListings);
 
 export default router;

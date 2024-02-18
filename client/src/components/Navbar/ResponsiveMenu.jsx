@@ -1,11 +1,32 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Navlinks, Userlinks } from "./Navbar";
+import {
+  signOutUserStart,
+  signOutUserSuccess,
+  signOutUserFailure,
+} from "../../redux/user/userSlice";
 
 const ResponsiveMenu = ({ showMenu }) => {
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signOutUserFailure());
+        return;
+      }
+      dispatch(signOutUserSuccess());
+    } catch (error) {
+      dispatch(signOutUserFailure());
+    }
+  };
   return (
     <div
       className={`${
@@ -16,7 +37,12 @@ const ResponsiveMenu = ({ showMenu }) => {
         <div className="flex items-center justify-start gap-3">
           <FaUserCircle size={50} />
           <div>
-            <h1>Hello, {currentUser.userName}</h1>
+            {currentUser ? (
+
+              <h1>Hello,{currentUser.userName}</h1>
+            ): (
+              <h1>Hello</h1>
+            )}
             <h1 className="text-sm text-slate-500">Welcome to BrilloConnetz</h1>
           </div>
         </div>
@@ -34,6 +60,11 @@ const ResponsiveMenu = ({ showMenu }) => {
                 </Link>
               </li>
             ))}
+            <li>
+              <button onClick={handleSignOut} className="mb-5 inline-block hover:text-red-700 hover:border-b-2 hover:border-red-700 transition-colors duration-500 ">
+             LOGOUT
+              </button>
+            </li>
           </ul>
         ) : (
           <ul className="space-y-4 text-xl">
