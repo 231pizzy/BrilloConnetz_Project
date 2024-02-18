@@ -56,7 +56,7 @@ export const verifyEmail = async (req, res, next) => {
   try {
     const emailToken = req.body.emailToken
 
-    if(!emailToken) returnres.status(400).json("Email token not found...")
+    if(!emailToken) return res.status(400).json("Email token not found...")
 
     const user = await User.findOne({emailToken})
 
@@ -175,6 +175,43 @@ export const forgotPassword = async (req, res, next) => {
   }
 };
 
+export const resetPassword = async (req, res, next) => {
+  try {
+    const { recoveryToken, password } = req.body;
+
+    // Check if recovery token and password are provided
+    if (!recoveryToken || !password) {
+      return res.status(400).json("Recovery token or password not provided");
+    }
+
+    // Find user by recovery token
+    const user = await User.findOne({ recoveryToken });
+
+    // If user not found, return appropriate error response
+    if (!user) {
+      return res.status(404).json("User not found with the provided recovery token");
+    }
+
+    // Hash the new password
+    const hashedPassword = bcryptjs.hashSync(password, 10);
+
+    // Update user's password
+    user.password = hashedPassword;
+
+    // Reset recovery token to a new value
+    user.recoveryToken = crypto.randomBytes(64).toString("hex");
+
+    // Save the updated user
+    await user.save();
+
+    // Respond with success message
+    res.status(200).json("Password reset successful");
+
+  } catch (error) {
+    // Pass the error to the error handler middleware
+    next(error);
+  }
+};
 export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)
     return next(errorHandler(401, "You can only update your own account!"));

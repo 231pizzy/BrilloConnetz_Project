@@ -23,6 +23,7 @@ import SignUp from "./pages/Signup";
 import Notification from "./pages/Notification";
 import Settings from "./pages/Settings";
 import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 
 const App = () => {
@@ -80,6 +81,7 @@ const App = () => {
           <Route path="/verifyOTP" element={<VerifyOTP />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
