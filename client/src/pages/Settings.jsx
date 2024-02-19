@@ -16,9 +16,19 @@ import {
   signOutUserFailure,
 } from "../redux/user/userSlice";
 import { toast } from "react-toastify";
+import pattern from "../assets/bgBanner.jpeg";
 
+const bannerImg = {
+  backgroundImage: `url(${pattern})`,
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  height: "100%",
+  width: "100%",
+  opacity:0.9
+};
 
-export default function Settings() {
+export default function Settings({theme}) {
   const fileRef = useRef(null);
   const { currentUser, loading} = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
@@ -105,7 +115,9 @@ export default function Settings() {
   };
 
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div className="dark:bg-black dark:text-white h-full md:h-screen" style={theme !== "dark" ? bannerImg : {}}>
+
+    <div className="p-3 max-w-lg mx-auto dark:bg-black dark:text-white h-full mb-8">
       <h1 className="text-3xl font-semibold text-center my-7">Settings</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
@@ -175,6 +187,7 @@ export default function Settings() {
           Sign out
         </span>
       </div>
+    </div>
     </div>
   );
 }

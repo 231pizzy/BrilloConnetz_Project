@@ -49,13 +49,13 @@ const Services = () => {
               Why Choose Us
             </h1>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 dark:bg-black dark:text-white">
             {skillsData.map((skill) => (
               <div
                 key={skill.name}
                 data-aos="fade-up"
                 data-aos-delay={skill.aosDelay}
-                className="card text-center group space-y-3 sm:space-y-6 p-4 sm:py-16 bg-slate-100 duration-300 text-gray-800 rounded-lg"
+                className="card text-center group space-y-3 sm:space-y-6 p-4 sm:py-16 bg-slate-100 duration-300 text-gray-800 rounded-lg dark:bg-gray-800 dark:text-white"
               >
                 <div className="grid place-items-center">{skill.icon}</div>
                 <h1 className="text-2xl font-bold">{skill.name}</h1>

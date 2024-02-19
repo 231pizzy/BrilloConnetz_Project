@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from "react";
-import carPng from "../../assets/car.png";
-// import yellowCar from "../../assets/banner-car.png";
-import redCar from "../../assets/sportfan1.png";
+import { useEffect } from "react";
+import sportFan from "../../assets/sportfan.png";
 import AOS from "aos";
 import { useNavigate } from "react-router-dom";
+// import pattern from "../../assets/bgBanner.jpeg";
 
+// const bannerImg = {
+//   backgroundImage: `url(${pattern})`,
+//   backgroundPosition: "center",
+//   backgroundRepeat: "no-repeat",
+//   backgroundSize: "cover",
+//   height: "100%",
+//   width: "100%",
+// };
 const Hero = ({ theme }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -18,7 +25,7 @@ const Hero = ({ theme }) => {
 
   return (
     <div className="dark:bg-black dark:text-white duration-300 ">
-      <div className="container min-h-[620px] flex">
+      <div className="container min-h-[620px] flex" >
         <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center">
           <div
             data-aos="zoom-in"
@@ -27,7 +34,7 @@ const Hero = ({ theme }) => {
             className="order-1 sm:order-2 mb-6 md:mb-0"
           >
             <img
-              src={theme === "dark" ? carPng : redCar}
+              src={theme === "dark" ? sportFan : sportFan}
               alt=""
               className="sm:scale-125 relative -z-10 max-h-[600px] drop-shadow-[2px_20px_6px_rgba(0,0,0,0.50)]"
             />

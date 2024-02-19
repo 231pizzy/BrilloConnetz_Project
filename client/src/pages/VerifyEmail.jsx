@@ -58,17 +58,18 @@ export default function VerifyEmail() {
   }, [emailToken, currentUser]);
 
   return (
-    <div className="p-3 max-w-lg mx-auto mt-20">
-        {currentUser?.emailVerified ? (
-
+    <div className="p-3 max-w-lg mx-auto mt-20 dark:bg-black dark:text-white h-screen">
+      {loading ? (
+        <h1 className="text-3xl text-center font-semibold my-7 text-blue-500">Loading...</h1>
+      ) : (
+        <>
+          {currentUser?.emailVerified ? (
             <h1 className="text-3xl text-center font-semibold my-7 text-green-700">Email successfully verified, Redirecting.....</h1>
-        ) : (
-            <div>
-
-                <h1 className="text-3xl text-center font-semibold my-7 text-red-500">Invalid verification token</h1>
-            </div>
-        )}
-      
+          ) : (
+            <h1 className="text-3xl text-center font-semibold my-7 text-red-500">{error || "Invalid verification token"}</h1>
+          )}
+        </>
+      )}
     </div>
   );
 }

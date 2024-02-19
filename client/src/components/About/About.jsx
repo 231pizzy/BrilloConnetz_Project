@@ -1,11 +1,19 @@
 import React from "react";
-import fan from "../../assets/sportfan.png";
+import fan from "../../assets/sportfan1.png";
+import pattern from "../../assets/greenBanner.jpeg";
 
-
+const bannerImg = {
+  backgroundImage: `url(${pattern})`,
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  height: "100%",
+  width: "100%",
+};
 const About = ({ theme }) => {
 
   return (
-    <div className="dark:bg-dark bg-slate-50 sm:min-h-[600px] sm:grid sm:place-items-center duration-300">
+    <div className="dark:bg-dark sm:min-h-[600px] sm:grid sm:place-items-center duration-300" style={theme !== "dark" ? bannerImg : {}}>
       <div className="container">
         <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center">
           <div data-aos="slide-right" data-aos-duration="1500">

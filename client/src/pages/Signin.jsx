@@ -37,7 +37,7 @@ export default function SignIn() {
       const data = await res.json();
       if (data.success === false) {
         dispatch(signInFailure(data.message));
-        toast.error("Invalid credentials")
+        toast.error(data.message)
         return;
       }
       dispatch(signInSuccess(data));
@@ -50,7 +50,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div className="p-3 max-w-lg mx-auto dark:bg-black dark:text-white h-screen">
       <h1 className="text-3xl text-center font-semibold my-7">Sign In</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
@@ -63,7 +63,7 @@ export default function SignIn() {
         <input
           type="password"
           placeholder="Password"
-          className="border p-3 rounded-lg"
+          className="border p-3 rounded-lg text-black"
           id="password"
           onChange={handleChange}
         />

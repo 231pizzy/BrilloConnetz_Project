@@ -9,10 +9,11 @@ import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
 import Services from "./components/Services/Services";
-import CarList from "./components/CarList/CarList";
+import SportList from "./components/SportsList/SportsList";
 import AppStoreBanner from "./components/AppStoreBanner/AppStoreBanner";
-import Contact from "./components/Contact/Contact";
 import Testimonial from "./components/Testimonial/Testimonial";
+
+// Pages
 import SignUp from "./pages/Signup";
 import SignIn from "./pages/Signin";
 import VerifyEmail from "./pages/VerifyEmail";
@@ -24,6 +25,7 @@ import Notification from "./pages/Notification";
 import Settings from "./pages/Settings";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+
 
 
 const App = () => {
@@ -61,10 +63,9 @@ const App = () => {
       <Hero theme={theme} />
       <Bot />
       <Services />
-      <CarList />
+      <SportList />
       <Testimonial />
       <AppStoreBanner />
-      <Contact />
     </div>
   );
 
@@ -84,8 +85,8 @@ const App = () => {
           <Route path="/reset-password" element={<ResetPassword />} />
 
           <Route element={<PrivateRoute />}>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/profile" element={<Profile theme={theme}/>} />
+            <Route path="/settings" element={<Settings theme={theme}/>} />
           </Route>
         </Routes>
       </BrowserRouter>

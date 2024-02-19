@@ -1,22 +1,25 @@
 import React from "react";
+import fan1 from "../../assets/fan1.jpeg"
+import fan2 from "../../assets/fan2.png"
+import fan3 from "../../assets/fan3.jpeg"
 
 const testimonialData = [
   {
-    name: "Dilshad",
-    image: "",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    name: "Aisvarya Adeseye",
+    image: fan1,
+    description: "This community is a game-changer! From match highlights to lively debates, I've found my tribe here. Every matchday is unforgettable thanks to the camaraderie and interactive features.",
     aosDelay: "0",
   },
   {
-    name: "Satya",
-    image: "",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    name: "Adeyemi Adeseye",
+    image: fan2,
+    description: "Connecting with fellow basketball fans here is exhilarating! Whether it's analyzing plays or reliving iconic moments, this community's passion is unmatched. It's not just about the sport; it's about the shared love that makes every game unforgettable.",
     aosDelay: "300",
   },
   {
-    name: "Sabir",
-    image: "",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    name: "Benedicta Okosun",
+    image: fan3,
+    description: "Joining this community has elevated my tennis-watching experience! From Grand Slam finals to thrilling rallies, every match is tenfold more exciting when shared here. The lively discussions and user-friendly interface make it feel like home.",
     aosDelay: "1000",
   },
 ];
@@ -32,11 +35,10 @@ const Testimonial = () => {
               data-aos="fade-up"
               className="text-3xl font-semibold text-center sm:text-4xl font-serif"
             >
-              What Our Clients Say About Us
+              Featured Fans
             </p>
             <p data-aos="fade-up" className="text-center sm:px-44">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Perferendis iure consectetur tempora amet.
+            Passionate sports enthusiasts who bring the excitement of the game to life, uniting in shared love and camaraderie.
             </p>
           </div>
 
@@ -50,7 +52,7 @@ const Testimonial = () => {
               >
                 <div className="grid place-items-center ">
                   <img
-                    src="https://picsum.photos/200"
+                    src={skill.image}
                     alt=""
                     className="rounded-full w-20 h-20"
                   />

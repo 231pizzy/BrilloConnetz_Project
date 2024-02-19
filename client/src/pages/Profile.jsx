@@ -1,11 +1,23 @@
 import { useSelector } from "react-redux";
+import pattern from "../assets/bgBanner.jpeg";
 
+const bannerImg = {
+  backgroundImage: `url(${pattern})`,
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  height: "100%",
+  width: "100%",
+  opacity:0.9
+};
 
-export default function Profile() {
+export default function Profile({ theme }) {
 
   const { currentUser} = useSelector((state) => state.user);
  
   return (
+    <div className="w-full h-full" style={theme !== "dark" ? bannerImg : {}}>
+
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
       <form className="flex flex-col gap-4">
@@ -79,6 +91,7 @@ export default function Profile() {
 </form>
 
 
+    </div>
     </div>
   );
 }
