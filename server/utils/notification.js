@@ -36,16 +36,17 @@ export const transporter = nodemailer.createTransport({
         from: '"BrilloConnetz" <dev-obiora@outlook.com>',
         to: newUser.email,
         subject: "Verify Your Email Address",
-        html: `<p> Hi ${user.userName},</p>
-        <p> Welcome to BrilloConnetz</p>
-        <p>To complete your registration, we need to confirm your email address.<p>
-        <a href="${process.env.URL}/verify-email?emailToken=${newUser.emailToken}">CLICK HERE.</a>`,
+        html: `<p> Hi ${newUser.userName},</p>
+        <P>Welcome to BrilloConnetz</p>
+        <p>Please click the link below to verify your email</p>
+   <a href="${process.env.URL}/verify-email?emailToken=${newUser.emailToken}">CLICK HERE.</a>`,
       });
       console.log("Verification email sent:");
     } catch (err) {
       console.error("Error sending verification email:");
     }
   };
+
 
   export const forgotPasswordMail = async (user) => {
     try {
