@@ -60,7 +60,7 @@ export default function VerifyEmail() {
   return (
     <div className="p-3 max-w-lg mx-auto mt-20 dark:bg-black dark:text-white h-screen">
       {loading ? (
-        <h1 className="text-3xl text-center font-semibold my-7 text-blue-500">Loading...</h1>
+        <h1 className="text-3xl text-center font-semibold my-7 text-black">Loading...</h1>
       ) : (
         <>
           {currentUser?.emailVerified ? (

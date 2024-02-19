@@ -16,7 +16,7 @@ import {
   signOutUserFailure,
 } from "../redux/user/userSlice";
 import { toast } from "react-toastify";
-import pattern from "../assets/bgBanner.jpeg";
+import pattern from "../assets/bgBanner.jpg";
 
 const bannerImg = {
   backgroundImage: `url(${pattern})`,

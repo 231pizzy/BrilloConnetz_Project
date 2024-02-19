@@ -1,6 +1,6 @@
 import React from "react";
 import fan from "../../assets/sportfan1.png";
-import pattern from "../../assets/greenBanner.jpeg";
+import pattern from "../../assets/bgBanner.jpg";
 
 const bannerImg = {
   backgroundImage: `url(${pattern})`,

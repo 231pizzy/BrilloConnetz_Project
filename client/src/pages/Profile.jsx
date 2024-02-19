@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import pattern from "../assets/bgBanner.jpeg";
+import pattern from "../assets/bgBanner.jpg";
 
 const bannerImg = {
   backgroundImage: `url(${pattern})`,
